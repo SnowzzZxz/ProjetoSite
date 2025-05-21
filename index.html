@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hability - Links</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* Imagem de fundo com carro */
+    body {
+      background: url('https://img.freepik.com/fotos-gratis/lamborghini-aventador-na-chuva_23-2151955620.jpg?semt=ais_hybrid&w=740') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Efeito glassmorphism nos cards */
+    .container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 10px;
+      width: 280px;
+      color: #fff;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      transition: background 0.3s;
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 16px;
+      background-color: rgba(88, 101, 242, 0.9);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: rgba(88, 101, 242, 1);
+    }
+
+    /* Canvas da chuva */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Chuva -->
+  <canvas id="rain"></canvas>
+
+  <!-- Conteúdo -->
+  <div class="container">
+    <div class="card">
+      <h2>👤 Meu Discord</h2>
+      <p>habilityyyy</p>
+      <a href="https://discord.com/users/1373114533442486425" class="btn" target="_blank">Ver perfil no Discord</a>
+    </div>
+
+    <div class="card">
+      <h2>🌐 Servidor no Discord</h2>
+      <p>Participe da comunidade!</p>
+      <a href="https://discord.gg/pf4UFkjN" class="btn" target="_blank">Entrar no servidor</a>
+    </div>
+
+    <div class="card">
+      <h2>🧱 Perfil Minecraft</h2>
+      <p>Nick: <strong>Habilitado</strong></p>
+      <a href="https://namemc.com/profile/Habilitado.8" class="btn" target="_blank">Ver no NameMC</a>
+    </div>
+  </div>
+
+  <!-- Script da chuva -->
+  <script>
+    const canvas = document.getElementById('rain');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const drops = Array.from({ length: 250 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      length: Math.random() * 20 + 10,
+      speed: Math.random() * 4 + 4
+    }));
+
+    function drawRain() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+      ctx.lineWidth = 1;
+
+      drops.forEach(drop => {
+        ctx.beginPath();
+        ctx.moveTo(drop.x, drop.y);
+        ctx.lineTo(drop.x, drop.y + drop.length);
+        ctx.stroke();
+      });
+
+      updateRain();
+      requestAnimationFrame(drawRain);
+    }
+
+    function updateRain() {
+      drops.forEach(drop => {
+        drop.y += drop.speed;
+        if (drop.y > height) {
+          drop.y = -drop.length;
+          drop.x = Math.random() * width;
+        }
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    drawRain();
+  </script>
+</body>
+</html>
